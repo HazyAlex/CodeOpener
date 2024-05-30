@@ -52,7 +52,7 @@ func (model Model) Init() tea.Cmd {
 }
 
 func (model Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	confirmButtonIndex := len(model.projects) - 1
+	confirmButtonIndex := len(model.projects)
 
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
@@ -114,16 +114,17 @@ func (model Model) View() string {
 			checked = "x"
 		}
 
-		if index < len(model.projects)-1 {
-			b.WriteString(checkboxStyle.Render(fmt.Sprintf("%s [", cursor)))
-			b.WriteString(checkedStyle.Render(checked))
-			b.WriteString(checkboxStyle.Render(fmt.Sprintf("] %s", choice.Label)))
-			b.WriteString("\n")
-		}
+		// Render the checkbox
+		b.WriteString(checkboxStyle.Render(fmt.Sprintf("%s [", cursor)))
+		b.WriteString(checkedStyle.Render(checked))
+		b.WriteString(checkboxStyle.Render(fmt.Sprintf("] %s", choice.Label)))
+		b.WriteString("\n")
 	}
 
+	// Render the confirm button
 	b.WriteString("\n")
-	if model.cursor == len(model.projects)-1 {
+
+	if model.cursor == len(model.projects) {
 		b.WriteString(confirmButtonStyle.Render("> Confirm <"))
 	} else {
 		b.WriteString(confirmButtonStyle.Render("Confirm"))
