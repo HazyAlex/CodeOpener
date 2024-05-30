@@ -37,19 +37,15 @@ func main() {
 		panic(err)
 	}
 
-	folders := parseRecentlyOpenedProjects(history)
+	projects := parseRecentlyOpenedProjects(history)
 
-	for _, entry := range folders {
-		for _, shortcut := range shortcuts {
-			if shortcut.Label == entry.Label {
-				// TODO: Query if the user wants to update or ignore.
-				break
-			}
-		}
+	// TODO: Pagination
+	projects = projects[0:15]
 
-		err := CreateShortcut(editorExecutablePath, entry.Folder, entry.Label)
-		if err != nil {
-			panic(err)
-		}
-	}
+	loop(Model{
+		editor:    editorExecutablePath,
+		projects:  projects,
+		shortcuts: shortcuts,
+		selected:  make(map[int]bool, len(projects)),
+	})
 }
