@@ -4,7 +4,9 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"net/url"
 	"path/filepath"
+	"strings"
 )
 
 type Entry struct {
@@ -61,4 +63,19 @@ func parseRecentlyOpenedProjects(history string) []Entry {
 	}
 
 	return folders
+}
+
+func displayFolderPath(path string) string {
+	symbols := []string{"vscode-remote://", "file://"}
+
+	path, err := url.QueryUnescape(path)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, symbol := range symbols {
+		path = strings.TrimLeft(path, symbol)
+	}
+
+	return path
 }

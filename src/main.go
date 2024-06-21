@@ -39,13 +39,5 @@ func main() {
 
 	projects := parseRecentlyOpenedProjects(history)
 
-	// TODO: Pagination
-	projects = projects[0:15]
-
-	loop(Model{
-		editor:    editorExecutablePath,
-		projects:  projects,
-		shortcuts: shortcuts,
-		selected:  make(map[int]bool, len(projects)),
-	})
+	loop(InitModel(editorExecutablePath, projects, shortcuts))
 }
