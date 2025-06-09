@@ -42,6 +42,8 @@ func GetEditorPath(editor string) (string, error) {
 		path = filepath.Join(os.Getenv("APPDATA"), "VSCodium")
 	case "code", "vscode":
 		path = filepath.Join(os.Getenv("APPDATA"), "Code")
+	case "cursor":
+		path = filepath.Join(os.Getenv("APPDATA"), "Cursor")
 	}
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
@@ -58,7 +60,9 @@ func GetEditorExecutablePath(editor string) (string, error) {
 	case "codium", "vscodium":
 		path = filepath.Join(os.Getenv("PROGRAMFILES"), "VSCodium", "VSCodium.exe")
 	case "code", "vscode":
-		path = filepath.Join(os.Getenv("LOCALAPPDATA"), "Programs", "Microsoft VS Code")
+		path = filepath.Join(os.Getenv("LOCALAPPDATA"), "Programs", "Microsoft VS Code", "Code.exe")
+	case "cursor":
+		path = filepath.Join(os.Getenv("LOCALAPPDATA"), "Programs", "cursor", "Cursor.exe")
 	}
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {

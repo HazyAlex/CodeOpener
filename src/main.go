@@ -13,7 +13,7 @@ func main() {
 	}
 
 	if len(os.Args) <= 1 {
-		panic("An argument is missing: editor (e.g. 'vscode', 'vscodium').")
+		panic("An argument is missing: editor (e.g. 'vscode', 'vscodium', 'cursor').")
 	}
 	editor := os.Args[1]
 
