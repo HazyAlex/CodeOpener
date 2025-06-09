@@ -138,7 +138,10 @@ func (model Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				break
 			}
 
-			Submit(model)
+			if err := Submit(model); err != nil {
+				panic(err)
+			}
+
 			model.completed = true
 		}
 	}
@@ -213,7 +216,9 @@ func Submit(model Model) error {
 			// Remove the shortcut if it exists.
 			for _, shortcut := range model.shortcuts {
 				if shortcut.Label == project.Label {
-					RemoveShortcut(project.Label)
+					if err := RemoveShortcut(project.Label); err != nil {
+						return err
+					}
 					break
 				}
 			}
