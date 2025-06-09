@@ -16,7 +16,7 @@ type Link struct {
 }
 
 func GetShortcutsPath() (string, error) {
-	path := filepath.Join(os.Getenv("PROGRAMDATA"), "Microsoft", "Windows", "Start Menu", "Programs")
+	path := filepath.Join(os.Getenv("APPDATA"), "Microsoft", "Windows", "Start Menu", "Programs")
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return "", errors.New("Folder: " + path + " does not exist.")
@@ -25,9 +25,9 @@ func GetShortcutsPath() (string, error) {
 	path = filepath.Join(path, "CodeOpener")
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		err = os.Mkdir(path, os.ModePerm)
+		err = os.MkdirAll(path, os.ModePerm)
 		if err != nil {
-			return "", errors.New("Failed to create the directory " + path + ", please make sure that the program is ran with Administrator privileges for the first time.")
+			return "", errors.New("Failed to create the directory " + path + ": " + err.Error())
 		}
 	}
 
