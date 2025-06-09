@@ -15,7 +15,7 @@ type Entry struct {
 }
 
 func getRecentlyOpenedProjects(sqlFile string) (string, error) {
-	db, err := sql.Open("sqlite3", sqlFile)
+	db, err := sql.Open("sqlite", sqlFile)
 	if err != nil {
 		panic(err)
 	}
